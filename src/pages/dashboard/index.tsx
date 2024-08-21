@@ -1,3 +1,10 @@
+import { Container } from "../../components/container";
+import { DashboardHeader } from "../../components/panelHeader";
+
 export const Dashboard = () => {
-  return <div>Dashboard</div>;
+  return (
+    <Container>
+      <DashboardHeader />
+    </Container>
+  );
 };
