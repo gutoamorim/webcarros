@@ -86,6 +86,7 @@ export const New = () => {
       owner: user?.name,
       uid: user?.uid,
       images: carListImages,
+      price: data.price,
     })
       .then(() => {
         reset();
