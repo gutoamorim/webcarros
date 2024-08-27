@@ -3,6 +3,7 @@ import { Container } from "../../components/container";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../../services/firebaseConnection";
 import { Link } from "react-router-dom";
+import { FiImage } from "react-icons/fi";
 
 interface CarsProps {
   id: string;
@@ -23,6 +24,7 @@ interface CarImages {
 
 export const Home = () => {
   const [cars, setCars] = useState<CarsProps[]>([]);
+  const [loadImages, setLoadImages] = useState<string[]>([]);
 
   useEffect(() => {
     function loadCars() {
@@ -31,8 +33,6 @@ export const Home = () => {
 
       getDocs(queryRef).then((snapshot) => {
         const listCars = [] as CarsProps[];
-
-        console.log(snapshot);
 
         snapshot.forEach((doc) => {
           listCars.push({
@@ -48,12 +48,15 @@ export const Home = () => {
         });
 
         setCars(listCars);
-        console.log(listCars);
       });
     }
 
     loadCars();
   }, [setCars]);
+
+  function handleImageLoad(id: string) {
+    setLoadImages((state) => [...state, id]);
+  }
 
   return (
     <Container>
@@ -76,16 +79,28 @@ export const Home = () => {
         {cars.map((car) => (
           <Link key={car.id} to={`/car/${car.id}`}>
             <section className="w-full bg-white rounded-lg hover:scale-105 transition-all">
+              <div
+                style={{
+                  display: loadImages.includes(car.id) ? "none" : "flex",
+                }}
+                className="w-full h-72 rounded-lg bg-slate-200 flex items-center justify-center"
+              >
+                <FiImage color="#fff" size={40} />
+              </div>
               <img
+                style={{
+                  display: loadImages.includes(car.id) ? "block" : "none",
+                }}
                 className="w-full rounded-lg mb-2 max-h-72"
                 src={car.images[0].url}
                 alt="Carro"
+                onLoad={() => handleImageLoad(car.id)}
               />
 
               <p className="font-bold mb-2 px-2">{car.name}</p>
 
               <div className="flex flex-col px-2">
-                <span className="text-zinc-700 mb-6">Ano: {car.year}</span>
+                <span className="text-zinc-700 mb-6">Ano: {car.year}</span>git
                 <strong className="text-black font-medium text-xl">
                   R$ {car.price}
                 </strong>
