@@ -13,6 +13,7 @@ import {
 import { auth } from "../../services/firebaseConnection";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import toast from "react-hot-toast";
 
 const schema = z.object({
   name: z.string().min(3, "O campo nome é obrigatório."),
@@ -55,7 +56,7 @@ export const Register = () => {
           uid: user.user.uid,
         });
 
-        console.log("Cadastrado com sucesso.");
+        toast.success("Bem vindo ao Web Carros");
         navigate("/dashboard", { replace: true });
       })
       .catch((error) => console.log(error));
