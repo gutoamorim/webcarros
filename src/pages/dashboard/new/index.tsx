@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useId, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { FiTrash, FiUpload } from "react-icons/fi";
 
 import { Container } from "../../../components/container";

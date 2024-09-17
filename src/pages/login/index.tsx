@@ -39,7 +39,7 @@ export const Login = () => {
 
   function onSubmit(data: FormData) {
     signInWithEmailAndPassword(auth, data.email, data.password)
-      .then((user) => {
+      .then(() => {
         navigate("/dashboard", { replace: true });
         toast.success("Logado com sucesso!");
       })
