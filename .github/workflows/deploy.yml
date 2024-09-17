@@ -3,7 +3,7 @@ name: Deploy React App to HostGator
 on:
   push:
     branches:
-      - maingit
+      - main
 
 jobs:
   deploy:
